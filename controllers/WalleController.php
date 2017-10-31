@@ -350,6 +350,14 @@ class WalleController extends Controller
                                ->where(['id' => $taskId])
                                ->with(['project'])
                                ->one();
+
+        $record = Record::find()
+            ->select(['percent' => 'action', 'status', 'memo', 'command', 'created_at'])
+            ->where(['task_id' => $taskId,])
+            ->orderBy('id desc')
+            ->asArray()
+            ->all();;
+
         if (!$this->task) {
             throw new \Exception(yii::t('walle', 'deployment id not exists'));
         }
@@ -358,7 +366,8 @@ class WalleController extends Controller
         }
 
         return $this->render('deploy', [
-            'task' => $this->task,
+            'task'   => $this->task,
+            'record' => $record
         ]);
     }
 
