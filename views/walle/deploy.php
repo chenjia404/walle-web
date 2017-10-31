@@ -89,8 +89,8 @@ use yii\helpers\Url;
                     <div class="widget-main">
                         <?php foreach ($record as $item) { ?>
                             <span class="gray">[<?= date('Y-m-d H:i:s', $item['created_at']) ?></span>
-                            <span class="<?= $item['status'] ? 'green' : 'red' ?>"><?= $item['command'] ?><br /></span>
-                            <span class="gray"><?= $item['memo'] ?><br /></span>
+                            <span class="<?= $item['status'] ? 'green' : 'red' ?>"><?=nl2br(str_replace("&&","&&\n",$item['command'])) ?><br /></span>
+                            <span class="gray"><?= nl2br($item['memo'])?><br /></span>
                         <?php } ?>
                     </div>
                 </div>
