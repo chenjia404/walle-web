@@ -158,6 +158,9 @@ class ConfController extends Controller
         $copy = new Project();
         $copy->load($project->getAttributes(), '');
 
+        // 复制项目，所有人应该为复制操作人
+        $copy->user_id = $this->uid;
+
         if (!$copy->save()) throw new \Exception(yii::t('conf', 'copy failed'));
 
         // 删除ansible配置文件
