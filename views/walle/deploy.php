@@ -102,6 +102,21 @@ use yii\helpers\Url;
 
 <script type="text/javascript">
     $(function() {
+        if(window.Notification)
+        {
+            if(Notification.permission !== "granted")
+            {
+                alert("请点击左上角同意，才能接收发版推送");
+                Notification.requestPermission().then(function(result) {
+                    // result可能是是granted, denied, 或default.
+                    if(result == "denied")
+                    {
+                        alert("您拒绝了通知");
+                    }
+                });
+            }
+        }
+
         $('.btn-deploy').click(function() {
             $this = $(this);
             $this.addClass('disabled');
@@ -144,6 +159,14 @@ use yii\helpers\Url;
                         $('.progress-status').removeClass('progress-bar-striped').addClass('progress-bar-success');
                         $('.progress-status').parent().removeClass('progress-striped');
                         $('.result-success').show();
+
+                        //后台状态，发一个通知
+                        if(document.visibilityState === "hidden" && Notification.permission !== "granted")
+                        {
+                            var notification = new Notification("发版成功", {
+                                body: '<?= $task->project->name ?>：<?= $task->title ?>'
+                            });
+                        }
                     } else {
                         setTimeout(getProcess, 600);
                     }
