@@ -161,7 +161,7 @@ use yii\helpers\Url;
                         $('.result-success').show();
 
                         //后台状态，发一个通知
-                        if(document.visibilityState === "hidden" && Notification.permission !== "granted")
+                        if(document.visibilityState === "hidden" && Notification.permission === "granted")
                         {
                             var notification = new Notification("发版成功", {
                                 body: '<?= $task->project->name ?>：<?= $task->title ?>'
