@@ -17,6 +17,13 @@ use app\models\Task;
 }
 </style>
 <div class="box">
+    <h4 class="box-title header smaller red">
+        <i class="icon-map-marker"></i><?= \Yii::t('w', 'conf_level_' . $conf->level) ?>
+        -
+        <?= $conf->name ?>
+        <a class="btn btn-success btn-return" href="<?= Url::to('@web/task/submit') ?>"><?= yii::t('walle', 'return') ?></a>
+    </h4>
+
     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
       <div class="box-body">
         <?= $form->field($task, 'title')->label(yii::t('task', 'submit title'), ['class' => 'control-label bolder blue']) ?>
