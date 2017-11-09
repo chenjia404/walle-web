@@ -19,6 +19,7 @@ use app\models\Project;
 use app\models\Group;
 use app\models\Record;
 use app\models\Task as TaskModel;
+use app\models\Task;
 use yii;
 class WalleController extends Controller
 {
@@ -361,7 +362,7 @@ class WalleController extends Controller
         if (!$this->task) {
             throw new \Exception(yii::t('walle', 'deployment id not exists'));
         }
-        if ($this->task->user_id != $this->uid) {
+        if ($this->task->user_id != $this->uid && $this->task->status != Task::STATUS_DONE) {
             throw new \Exception(yii::t('w', 'you are not master of project'));
         }
 
